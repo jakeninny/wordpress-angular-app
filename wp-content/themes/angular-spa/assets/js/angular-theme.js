@@ -13,7 +13,7 @@ wpApp.controller( 'ListCtrl', ['$scope', 'Posts', function( $scope, Posts ) {
 	Posts.query(function( res ) {
 		$scope.posts = res;
 	});
-	
+
 }]);
 
 wpApp.config( function( $stateProvider, $urlRouterProvider){
@@ -23,5 +23,11 @@ wpApp.config( function( $stateProvider, $urlRouterProvider){
 			url: '/',
 			controller: 'ListCtrl',
 			templateUrl: appInfo.template_directory + 'templates/list.html'
-		})
-})
+		});
+});
+
+wpApp.filter('to_trusted', ['$sce', function( $sce ){
+	return function( text ) {
+		return $sce.trustAsHtml( text );
+	};
+}]);
